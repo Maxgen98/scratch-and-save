@@ -3,13 +3,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const ctx = canvas.getContext('2d');
     let isDrawing = false;
 
-    // Appliquer une couche grise pour gratter
+    // Charger l'image cachée sous le grattage
+    const hiddenImage = new Image();
+    hiddenImage.src = 'prize.png'; // Image qui sera révélée sous le grattage
+    hiddenImage.onload = function() {
+        ctx.drawImage(hiddenImage, 0, 0, canvas.width, canvas.height);
+        applyScratchLayer();
+    };
+
+    // Ajouter la couche grattable (grise) par-dessus l’image
     function applyScratchLayer() {
-        ctx.fillStyle = '#CCCCCC'; // Couleur grise pour le grattage
+        ctx.fillStyle = '#CCCCCC'; // Couleur grise à gratter
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
-
-    applyScratchLayer();
 
     function startScratching(e) {
         isDrawing = true;
@@ -58,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('email-form').classList.remove('hidden');
     }
 
-    // Événements pour souris et tactile
+    // Événements souris et tactile
     canvas.addEventListener('mousedown', startScratching);
     canvas.addEventListener('mousemove', scratch);
     canvas.addEventListener('mouseup', stopScratching);

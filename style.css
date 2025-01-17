@@ -8,7 +8,7 @@ body {
 canvas {
     border: 2px solid #000;
     cursor: crosshair;
-    background: url('prize.png') center/cover no-repeat;
+    background: url('prize.png') center/cover no-repeat; /* Ajout de l’image de fond */
 }
 
 .hidden {
