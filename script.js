@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let isDrawing = false;
 
     // Générer un rabais aléatoire
-    const discounts = ['5% de rabais', '10% de rabais', '15% de rabais'];
+    const discounts = ['5%', '10%', '15%'];
     const randomDiscount = discounts[Math.floor(Math.random() * discounts.length)];
     document.getElementById('discount').innerText = randomDiscount;
 
