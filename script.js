@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const ctx = canvas.getContext('2d');
     let isDrawing = false;
 
-    // Générer un rabais aléatoire
+    // Générer un rabais aléatoire sous l'image
     const discounts = ['5%', '10%', '15%'];
     const randomDiscount = discounts[Math.floor(Math.random() * discounts.length)];
     document.getElementById('discount').innerText = randomDiscount;
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
         const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
 
-        ctx.globalCompositeOperation = 'destination-out'; // Enlève l’image par grattage
+        ctx.globalCompositeOperation = 'destination-out'; // Enlève l’image progressivement
         ctx.beginPath();
         ctx.arc(x, y, 20, 0, Math.PI * 2);
         ctx.fill();
