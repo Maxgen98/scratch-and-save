@@ -58,6 +58,35 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('email-form').classList.remove('hidden');
     }
 
+    // Gestion de la soumission de l'e-mail
+    document.getElementById('email-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const emailInput = document.getElementById('email');
+        const email = emailInput.value.trim();
+
+        if (!validateEmail(email)) {
+            alert("Veuillez entrer un e-mail valide.");
+            return;
+        }
+
+        // Générer un code promo
+        const promoCode = "SAVE-" + Math.floor(1000 + Math.random() * 9000);
+        
+        // Simuler l'envoi (à remplacer par un appel API si nécessaire)
+        console.log(`E-mail envoyé à ${email} avec le code promo : ${promoCode}`);
+        
+        // Afficher un message de confirmation
+        document.getElementById('confirmation').innerText = `Merci ! Votre code promo est : ${promoCode}`;
+        document.getElementById('confirmation').classList.remove('hidden');
+
+        // Masquer le formulaire après soumission
+        document.getElementById('email-form').classList.add('hidden');
+    });
+
+    function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
     // Événements souris et tactile
     canvas.addEventListener('mousedown', startScratching);
     canvas.addEventListener('mousemove', scratch);
@@ -65,11 +94,4 @@ document.addEventListener('DOMContentLoaded', function() {
     canvas.addEventListener('touchstart', startScratching);
     canvas.addEventListener('touchmove', scratch);
     canvas.addEventListener('touchend', stopScratching);
-
-    // Formulaire e-mail
-    document.getElementById('email-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        document.getElementById('email-form').classList.add('hidden');
-        document.getElementById('confirmation').classList.remove('hidden');
-    });
 });
