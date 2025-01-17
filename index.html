@@ -8,13 +8,18 @@
 </head>
 <body>
     <h1>Grattez pour découvrir votre rabais !</h1>
-    <canvas id="scratch-canvas" width="300" height="300"></canvas>
-    <p id="discount" class="hidden"></p>
+
+    <div id="scratch-container">
+        <p id="discount"></p>
+        <canvas id="scratch-canvas" width="300" height="300"></canvas>
+    </div>
+
     <form id="email-form" class="hidden">
         <label for="email">Entrez votre e-mail pour recevoir le code :</label>
         <input type="email" id="email" required>
         <button type="submit">Recevoir mon rabais</button>
     </form>
+
     <p id="confirmation" class="hidden">Merci ! Vérifiez votre e-mail pour votre rabais.</p>
     <script src="script.js"></script>
 </body>
