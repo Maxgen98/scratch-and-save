@@ -3,17 +3,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const ctx = canvas.getContext('2d');
     let isDrawing = false;
 
-    // Charger l'image cachée sous le grattage
-    const hiddenImage = new Image();
-    hiddenImage.src = 'prize.png'; // Image qui sera révélée sous le grattage
-    hiddenImage.onload = function() {
-        ctx.drawImage(hiddenImage, 0, 0, canvas.width, canvas.height);
+    // Générer un rabais aléatoire
+    const discounts = ['5% de rabais', '10% de rabais', '15% de rabais'];
+    const randomDiscount = discounts[Math.floor(Math.random() * discounts.length)];
+    document.getElementById('discount').innerText = 'Votre rabais: ' + randomDiscount;
+
+    // Charger l'image grattable (qui sera au-dessus)
+    const scratchImage = new Image();
+    scratchImage.src = 'prize.png'; 
+    scratchImage.onload = function() {
+        ctx.drawImage(scratchImage, 0, 0, canvas.width, canvas.height);
         applyScratchLayer();
     };
 
-    // Ajouter la couche grattable (grise) par-dessus l’image
+    // Ajouter la couche grattable opaque (gris)
     function applyScratchLayer() {
-        ctx.fillStyle = '#CCCCCC'; // Couleur grise à gratter
+        ctx.fillStyle = '#CCCCCC'; // Couche opaque à gratter
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
@@ -57,9 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function revealDiscount() {
-        const discounts = ['5% de rabais', '10% de rabais', '15% de rabais'];
-        const randomDiscount = discounts[Math.floor(Math.random() * discounts.length)];
-        document.getElementById('discount').innerText = 'Votre rabais: ' + randomDiscount;
+        canvas.style.display = 'none'; // Masquer le canvas après grattage
         document.getElementById('discount').classList.remove('hidden');
         document.getElementById('email-form').classList.remove('hidden');
     }
