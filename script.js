@@ -69,14 +69,17 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Générer un code promo
-        const promoCode = "SAVE-" + Math.floor(1000 + Math.random() * 9000);
+        // Générer un code promo unique
+        const promoCode = "SAVE-" + Math.floor(1000 + Math.random() * 9000) + "-" + Math.random().toString(36).substring(2, 6).toUpperCase();
         
-        // Simuler l'envoi (à remplacer par un appel API si nécessaire)
-        console.log(`E-mail envoyé à ${email} avec le code promo : ${promoCode}`);
+        // Générer un code-barres basé sur le code promo
+        const barcodeUrl = `https://barcode.tec-it.com/barcode.ashx?data=${promoCode}&code=Code128&dpi=200`;
+
+        // Envoyer l'e-mail via SendGrid
+        sendEmail(email, promoCode, barcodeUrl);
         
         // Afficher un message de confirmation
-        document.getElementById('confirmation').innerText = `Merci ! Votre code promo est : ${promoCode}`;
+        document.getElementById('confirmation').innerText = `Merci ! Votre code promo a été envoyé à ${email}.`;
         document.getElementById('confirmation').classList.remove('hidden');
 
         // Masquer le formulaire après soumission
@@ -85,6 +88,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function validateEmail(email) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function sendEmail(email, promoCode, barcodeUrl) {
+        fetch("https://api.sendgrid.com/v3/mail/send", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer VOTRE_CLEF_API_SENDGRID", // Remplacez par votre clé API SendGrid
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                personalizations: [{ to: [{ email: email }] }],
+                from: { email: "votre-email@votre-domaine.com" }, // Remplacez par votre email
+                subject: "Votre code promo exclusif !",
+                content: [
+                    {
+                        type: "text/html",
+                        value: `<p>Merci d'avoir participé ! Voici votre code promo unique :</p>
+                                <h2>${promoCode}</h2>
+                                <p>Scannez ce code-barres pour utiliser votre rabais :</p>
+                                <img src="${barcodeUrl}" alt="Code-barres du rabais"/>`
+                    }
+                ]
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erreur lors de l'envoi de l'email.");
+            }
+            console.log("E-mail envoyé avec succès !");
+        })
+        .catch(error => {
+            console.error("Erreur:", error);
+        });
     }
 
     // Événements souris et tactile
