@@ -6,21 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Générer un rabais aléatoire
     const discounts = ['5% de rabais', '10% de rabais', '15% de rabais'];
     const randomDiscount = discounts[Math.floor(Math.random() * discounts.length)];
-    document.getElementById('discount').innerText = 'Votre rabais: ' + randomDiscount;
+    document.getElementById('discount').innerText = randomDiscount;
 
-    // Charger l'image grattable (qui sera au-dessus)
+    // Charger l’image qui sera la couche grattable
     const scratchImage = new Image();
     scratchImage.src = 'prize.png'; 
     scratchImage.onload = function() {
         ctx.drawImage(scratchImage, 0, 0, canvas.width, canvas.height);
-        applyScratchLayer();
     };
-
-    // Ajouter la couche grattable opaque (gris)
-    function applyScratchLayer() {
-        ctx.fillStyle = '#CCCCCC'; // Couche opaque à gratter
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
 
     function startScratching(e) {
         isDrawing = true;
@@ -38,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
         const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
 
-        ctx.globalCompositeOperation = 'destination-out'; // Effet de grattage
+        ctx.globalCompositeOperation = 'destination-out'; // Enlève l’image par grattage
         ctx.beginPath();
         ctx.arc(x, y, 20, 0, Math.PI * 2);
         ctx.fill();
@@ -62,8 +55,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function revealDiscount() {
-        canvas.style.display = 'none'; // Masquer le canvas après grattage
-        document.getElementById('discount').classList.remove('hidden');
         document.getElementById('email-form').classList.remove('hidden');
     }
 
