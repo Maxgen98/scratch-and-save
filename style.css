@@ -1,10 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin-top: 50px;
-    background-color: #f4f4f4;
-}
-
 #scratch-container {
     position: relative;
     display: inline-block;
@@ -13,21 +6,21 @@ body {
 }
 
 #discount {
-    font-size: 48px;
+    font-size: 36px; /* Réduit la taille du texte */
     font-weight: bold;
     color: #333;
     text-align: center;
-    line-height: 300px; /* Centrage vertical */
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 300px;
-    height: 300px;
-    background-color: white; /* Fond blanc pour assurer la visibilité */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centre précisément le texte */
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1; /* Derrière le canvas */
+    background-color: transparent; /* Enlève la couleur de fond */
+    z-index: 1; /* Doit être sous l’image grattable */
 }
 
 canvas {
@@ -40,10 +33,8 @@ canvas {
     z-index: 2; /* L’image à gratter est au-dessus */
 }
 
-.hidden {
-    display: none;
-}
-
 #email-form {
     margin-top: 20px;
+    position: relative;
+    z-index: 3; /* Assure que le formulaire reste visible */
 }
