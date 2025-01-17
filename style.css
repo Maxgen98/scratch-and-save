@@ -22,4 +22,8 @@ canvas {
     font-size: 24px;
     font-weight: bold;
     color: #333;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    margin-top: 150px; /* Ajuster pour être bien centré sous le canvas */
 }
