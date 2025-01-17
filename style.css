@@ -5,25 +5,24 @@ body {
     background-color: #f4f4f4;
 }
 
+#scratch-container {
+    position: relative;
+    display: inline-block;
+}
+
 canvas {
-    border: 2px solid #000;
+    position: absolute;
+    top: 0;
+    left: 0;
     cursor: crosshair;
 }
 
-.hidden {
-    display: none;
-}
-
-#email-form {
-    margin-top: 20px;
-}
-
 #discount {
-    font-size: 24px;
+    font-size: 48px;
     font-weight: bold;
     color: #333;
-    position: absolute;
-    width: 100%;
     text-align: center;
-    margin-top: 150px; /* Ajuster pour être bien centré sous le canvas */
+    width: 100%;
+    line-height: 300px; /* Centrer verticalement */
+    background-color: white; /* Fond blanc pour assurer la visibilité */
 }
